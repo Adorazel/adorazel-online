@@ -1,0 +1,24 @@
+{
+  "port": 80,
+  "mongoUrl": "",
+  "jwtSecret": "",
+  "smtp": {
+    "transporter": {
+      "host": "smtp.example.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "foo@example.com",
+        "pass": "password"
+      }
+    },
+    "options": {
+      "from": "\"Fred Foo 👻\" <foo@example.com>",
+      "to": "bar@example.com, baz@example.com"
+    }
+  },
+  "uploadLimits": {
+    "fileSize": 10485760,
+    "files": 10
+  }
+}

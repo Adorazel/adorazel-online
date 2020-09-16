@@ -1,0 +1,172 @@
+@import "src/scss/vars";
+
+body {
+  *::selection {
+    background-color: $m_gray;
+    color: $accent;
+    text-shadow: 0 0 8px fade($accent, 60%);
+  }
+}
+
+a {
+  font-weight: bolder;
+
+  &:not(.btn):not(.menu-link):hover,
+  &:not(.btn):not(.menu-link):focus {
+    text-shadow: 0 0 8px rgba($accent, .6);
+  }
+
+  * {
+    pointer-events: none;
+  }
+}
+
+.content-body {
+  min-height: calc(100vh - 138px);
+  padding-bottom: 35px;
+  overflow: hidden;
+}
+
+.pattern {
+  position: relative;
+  background-color: $card-bg;
+  background-image: $pattern;
+  background-clip: border-box;
+
+  &::before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: -webkit-linear-gradient(left, #7b7a7a 0, #5b5a5a 20%, #7b7a7a 40%, #5b5a5a 60%, #7b7a7a 80%, #5b5a5a 100%);
+    background: linear-gradient(to right, #7b7a7a 0, #5b5a5a 20%, #7b7a7a 40%, #5b5a5a 60%, #7b7a7a 80%, #5b5a5a 100%);
+    opacity: .1;
+  }
+}
+
+@keyframes animateGlow {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.aurora {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+
+  &::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: -1;
+    transform: scale(0.75);
+    filter: blur(5vw);
+    background: -webkit-linear-gradient(right, #0fffc1, #7e0fff);
+    background: linear-gradient(270deg, #0fffc1, #7e0fff);
+    background-size: 200% 200%;
+    animation: animateGlow 20s ease infinite;
+  }
+
+  + div {
+    position: relative;
+  }
+}
+
+.stroke-title {
+  position: relative;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-align: center;
+
+  &::before {
+    display: block;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background: #323233;
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    z-index: -1;
+  }
+
+  .title {
+    //font-size: 18px;
+    background: #1b1b1c;
+    color: #c5c5c5;
+    display: inline-block;
+    padding: 0 5px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin: 10px 0;
+  }
+}
+
+.text-shadow-primary {
+  text-shadow: 0 0 8px rgba(28, 175, 154, .6);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "\e812";
+  font-family: "adorazel_online";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+  //
+  //display: inline-block;
+  //text-decoration: inherit;
+  //width: 1em;
+  //margin-right: .2em;
+  //text-align: center;
+  ///* opacity: .8; */
+  //
+  ///* For safety - reset parent styles, that can break glyph codes*/
+  //font-variant: normal;
+  //text-transform: none;
+  //
+  ///* fix buttons height, for twitter bootstrap */
+  //line-height: 1em;
+  //
+  ///* Animation center compensation - margins should be symmetric */
+  ///* remove if not needed */
+  //margin-left: .2em;
+  //
+  ///* you can be more comfortable with increased icons size */
+  ///* font-size: 120%; */
+  //
+  ///* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}

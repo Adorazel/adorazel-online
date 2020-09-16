@@ -1,0 +1,125 @@
+@import "src/scss/vars";
+
+.project-details {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 390px;
+  background: $dark;
+  will-change: transform;
+  transform: translateX(-100%);
+  transition: transform .6s cubic-bezier(.23, 1, .32, 1);
+
+
+  &.open,
+  &-enter-active,
+  &-enter-done {
+    transform: translateX(0);
+
+  }
+
+  &-exit-active,
+  &-exit-done {
+    transform: translateX(-100%);
+  }
+
+  &__header {
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 11px 35px rgba(0, 0, 0, .5);
+
+    .close-btn {
+      display: block;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      background-color: $accent;
+      position: relative;
+      border: none;
+      &:hover,
+      &:focus,
+      &:active {
+        outline: none;
+      }
+
+      &::before {
+        display: block;
+        content: "";
+        width: 30px;
+        height: 0;
+        border-bottom: 2px solid $white;
+        position: absolute;
+        left: 50%;
+        bottom: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        transition: all 0.4s cubic-bezier(0.230, 1.000, 0.320, 1.000);
+      }
+
+      &::after {
+        display: block;
+        content: "";
+        width: 30px;
+        height: 0;
+        border-left: 2px solid $white;
+        border-top: 2px solid $white;
+        position: absolute;
+        left: 50%;
+        bottom: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        transition: all 0.4s cubic-bezier(0.230, 1.000, 0.320, 1.000);
+      }
+
+      &:hover {
+        &::before {
+          transform: translate(-50%, -50%) rotate(0);
+        }
+
+        &::after {
+          margin-bottom: -13px;
+          margin-left: -7px;
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+  }
+
+  .title {
+    line-height: 1;
+    white-space: nowrap;
+    animation-delay: .15s;
+
+    &-enter-active,
+    &-enter-done {
+      animation-name: bounceInLeft;
+    }
+  }
+
+
+  .slider {
+    animation-delay: .25s;
+    height: calc(100vh - 171px);
+
+    > div {
+      max-height: calc(100vh - 171px);
+    }
+
+    .slicebox-slider {
+      position: relative;
+      z-index: 2;
+
+      + p {
+        position: relative;
+        z-index: 1;
+      }
+    }
+
+
+    &-enter-active,
+    &-enter-done {
+      animation-name: bounceInLeft;
+    }
+  }
+}

@@ -1,0 +1,734 @@
+@import "../../../scss/vars";
+
+.about-page {
+
+  .left-column {
+    @include media-breakpoint-up(md) {
+      padding-top: 170%;
+    }
+    @include media-breakpoint-up(lg) {
+      padding-top: 150%;
+    }
+    @include media-breakpoint-up(xl) {
+      padding-top: 170%;
+    }
+  }
+
+  .right-column {
+    @include media-breakpoint-up(lg) {
+      padding-top: 150%;
+    }
+    @include media-breakpoint-up(xl) {
+      padding-top: 170%;
+    }
+  }
+
+  .text-shadow {
+    text-shadow: 0 0 8px rgba(28, 175, 154, .6);
+  }
+
+  .title.dotted {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: $white;
+    line-height: 1;
+    position: relative;
+    padding: 13px 10px 10px;
+
+    &::before,
+    &::after {
+      content: "";
+      width: 100%;
+      height: 3px;
+      background-image: url(../../../img/border-dot.png);
+      background-size: auto 100%;
+      position: absolute;
+      left: 0;
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
+  }
+
+  p {
+    color: $gray;
+    font-size: 1.125rem;
+    line-height: 1.2;
+  }
+
+  small {
+    color: $m_gray;
+  }
+
+  ul.skills {
+    margin: 1.25rem 0;
+
+    li {
+      margin-bottom: 0.625rem;
+
+      .text {
+        line-height: 1.2;
+        font-size: 1.125rem;
+      }
+    }
+  }
+
+  hr.dotted {
+    border-top: none;
+    height: 3px;
+    background-image: url(../../../img/border-dot.png);
+    background-size: auto 100%;
+  }
+
+  .middle-column {
+    padding-top: 45.71428571428571%; // 160px
+
+    .social {
+      font-size: 3.125rem;
+    }
+  }
+
+  .back-column {
+    position: relative;
+    padding-top: 57.41935483870968%; // 200px
+    background-color: $common;
+    padding-bottom: 10000px;
+    margin-bottom: -10035px;
+  }
+
+  .back-hex,
+  .white-hex,
+  .code-hex {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 57.41935483870968%;
+    z-index: 1;
+
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: inherit;
+      padding: inherit;
+      background: inherit;
+    }
+
+    &::before {
+      transform: rotate(60deg);
+    }
+
+    &::after {
+      transform: rotate(-60deg);
+    }
+  }
+
+  .back-hex {
+    background: $common;
+  }
+
+  .white-hex {
+    margin-top: -30%;
+    background: $white;
+    transform: scale(.85);
+  }
+
+  .code-hex {
+    background: $dark;
+    transform: scale(.87);
+  }
+
+  .content {
+    z-index: 2;
+
+    .resume {
+      margin-bottom: -3px;
+    }
+
+    .h1 {
+      color: $white;
+      text-shadow: none;
+      font-size: 2.75rem;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+
+    p {
+      color: $gray;
+    }
+
+    h5 {
+      color: $white;
+      font-weight: bold;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+
+      + p {
+        color: $accent;
+        font-weight: bold;
+        font-size: 1rem;
+        text-transform: uppercase;
+      }
+
+      ~ h5 {
+        margin-top: 25px;
+      }
+    }
+
+    hr + h5 {
+      margin-top: 40px;
+    }
+
+    p + hr {
+      margin-top: 40px;
+    }
+
+    a[target=_blank] img {
+      margin-bottom: 15px;
+      margin-top: 15px;
+    }
+  }
+
+  .hex-wrapper {
+    margin-top: -30%;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 57.41935483870968%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    will-change: transform;
+
+    &.flip {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .hex {
+    position: absolute;
+    width: 100%;
+    padding-bottom: 57.41935483870968%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: auto 200%;
+    z-index: 1;
+    transform: scale(.74);
+    backface-visibility: hidden;
+    cursor: pointer;
+
+    .corner-1,
+    .corner-2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: inherit;
+      padding: inherit;
+      overflow: hidden;
+
+      .before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        padding-bottom: 116%;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: auto 100%;
+      }
+    }
+
+    .corner-1 {
+      transform: rotate(60deg);
+
+      .before {
+        transform: translate(-50%, -50%) rotate(-60deg);
+      }
+    }
+
+    .corner-2 {
+      transform: rotate(-60deg);
+
+      .before {
+        transform: translate(-50%, -50%) rotate(60deg);
+      }
+    }
+
+    &.photo {
+      transform: scale(.74) rotateY(180deg);
+    }
+  }
+
+  .doodles-scaler {
+    transform-origin: 50% 0;
+    transform: scale(1);
+  }
+
+  .left-doodles {
+    padding: 0;
+    width: 800px;
+    height: 1000px;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 50%;
+    margin: -250px 20px 0 0;
+
+    .layer {
+      list-style: none;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      > span {
+        display: block;
+        width: 225px;
+        height: 225px;
+        opacity: .65;
+        background-image: url(../../../img/left-doodles-grid.png);
+        background-size: 1125px 1125px;
+        background-repeat: no-repeat;
+        position: absolute;
+        left: -99999px;
+        top: -99999px;
+
+        &.doodle1 {
+          background-position: 0 0;
+          left: 20px;
+          top: 10px;
+        }
+
+        &.doodle2 {
+          background-position: -225px 0;
+          left: 185px;
+          top: 10px;
+        }
+
+        &.doodle3 {
+          background-position: -450px 0;
+          left: 360px;
+          top: 0;
+        }
+
+        &.doodle4 {
+          background-position: -675px 0;
+          left: 470px;
+          top: 25px;
+        }
+
+        &.doodle5 {
+          background-position: -900px 0;
+          left: 570px;
+          top: 25px;
+        }
+
+        &.doodle6 {
+          background-position: 0 -225px;
+          left: 670px;
+          top: 10px;
+        }
+
+        &.doodle7 {
+          background-position: -225px -225px;
+          left: 10px;
+          top: 110px;
+        }
+
+        &.doodle8 {
+          background-position: -450px -225px;
+          left: 75px;
+          top: 85px;
+        }
+
+        &.doodle9 {
+          background-position: -675px -225px;
+          left: 400px;
+          top: 130px;
+        }
+
+        &.doodle10 {
+          background-position: -900px -225px;
+          left: 535px;
+          top: 135px;
+        }
+
+        &.doodle11 {
+          background-position: 0 -450px;
+          left: 450px;
+          top: 180px;
+        }
+
+        &.doodle12 {
+          background-position: -225px -450px;
+          left: 250px;
+          top: 210px;
+        }
+
+        &.doodle13 {
+          background-position: -450px -450px;
+          left: 185px;
+          top: 180px;
+        }
+
+        &.doodle14 {
+          background-position: -675px -450px;
+          left: 0;
+          top: 235px;
+        }
+
+        &.doodle15 {
+          background-position: -900px -450px;
+          left: 85px;
+          top: 245px;
+        }
+
+        &.doodle16 {
+          background-position: 0 -675px;
+          left: 250px;
+          top: 310px;
+        }
+
+        &.doodle17 {
+          background-position: -225px -675px;
+          left: 330px;
+          top: 280px;
+        }
+
+        &.doodle18 {
+          background-position: -450px -675px;
+          left: 460px;
+          top: 260px;
+        }
+
+        &.doodle19 {
+          background-position: -675px -675px;
+          left: 510px;
+          top: 340px;
+        }
+
+        &.doodle20 {
+          background-position: -900px -675px;
+          left: 200px;
+          top: 385px;
+        }
+
+        &.doodle21 {
+          background-position: 0 -900px;
+          left: 310px;
+          top: 465px;
+        }
+
+        &.doodle22 {
+          background-position: -225px -900px;
+          left: 405px;
+          top: 485px
+        }
+
+        &.doodle23 {
+          background-position: -450px -900px;
+          left: 575px;
+          top: 480px;
+        }
+
+        &.doodle24 {
+          background-position: -675px -900px;
+          left: 565px;
+          top: 565px;
+        }
+
+        &.doodle25 {
+          background-position: -900px -900px;
+          left: 435px;
+          top: 385px;
+        }
+      }
+    }
+
+  }
+
+  .right-doodles {
+    padding: 0;
+    width: 800px;
+    height: 1000px;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    margin: -270px 0 0 70px;
+
+    .layer {
+      list-style: none;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      > span {
+        display: block;
+        width: 225px;
+        height: 225px;
+        opacity: .65;
+        background-image: url(../../../img/right-doodles-grid.png);
+        background-size: 1125px 1125px;
+        background-repeat: no-repeat;
+        position: absolute;
+        left: -99999px;
+        top: -99999px;
+
+        &.doodle1 {
+          background-position: 0 0;
+          left: 0;
+          top: 40px;
+        }
+
+        &.doodle2 {
+          background-position: -225px 0;
+          left: 125px;
+          top: 0;
+        }
+
+        &.doodle3 {
+          background-position: -450px 0;
+          left: 270px;
+          top: 30px;
+        }
+
+        &.doodle4 {
+          background-position: -675px 0;
+          left: 430px;
+          top: 20px;
+        }
+
+        &.doodle5 {
+          background-position: -900px 0;
+          left: 520px;
+          top: 25px;
+        }
+
+        &.doodle6 {
+          background-position: 0 -225px;
+          left: 600px;
+          top: 10px;
+        }
+
+        &.doodle7 {
+          background-position: -225px -225px;
+          left: 130px;
+          top: 190px;
+        }
+
+        &.doodle8 {
+          background-position: -450px -225px;
+          left: 230px;
+          top: 165px;
+        }
+
+        &.doodle26 {
+          background-position: -450px -225px;
+          left: 700px;
+          top: 70px;
+          transform: rotate(20deg) scale(.6);
+          transform-origin: 0 0;
+        }
+
+        &.doodle9 {
+          background-position: -675px -225px;
+          left: 335px;
+          top: 220px;
+        }
+
+        &.doodle10 {
+          background-position: -900px -225px;
+          left: 405px;
+          top: 130px;
+        }
+
+        &.doodle11 {
+          background-position: 0 -450px;
+          left: 510px;
+          top: 155px;
+        }
+
+        &.doodle12 {
+          background-position: -225px -450px;
+          left: 590px;
+          top: 100px;
+        }
+
+        &.doodle13 {
+          background-position: -450px -450px;
+          left: 290px;
+          top: 370px;
+        }
+
+        &.doodle14 {
+          background-position: -675px -450px;
+          left: 660px;
+          top: 145px;
+        }
+
+        &.doodle15 {
+          background-position: -900px -450px;
+          left: 575px;
+          top: 265px;
+        }
+
+        &.doodle16 {
+          background-position: 0 -675px;
+          left: 610px;
+          top: 340px;
+        }
+
+        &.doodle17 {
+          background-position: -225px -675px;
+          left: 540px;
+          top: 295px;
+        }
+
+        &.doodle18 {
+          background-position: -450px -675px;
+          left: 435px;
+          top: 220px;
+        }
+
+        &.doodle19 {
+          background-position: -675px -675px;
+          left: 340px;
+          top: 280px;
+        }
+
+        &.doodle20 {
+          background-position: -900px -675px;
+          left: 200px;
+          top: 285px;
+        }
+
+        &.doodle21 {
+          background-position: 0 -900px;
+          left: 165px;
+          top: 335px;
+        }
+
+        &.doodle22 {
+          background-position: -225px -900px;
+          left: 250px;
+          top: 330px;
+        }
+
+        &.doodle23 {
+          background-position: -450px -900px;
+          left: 385px;
+          top: 435px;
+        }
+
+        &.doodle24 {
+          background-position: -675px -900px;
+          left: 140px;
+          top: 455px;
+        }
+
+        &.doodle25 {
+          background-position: -900px -900px;
+          left: 285px;
+          top: 485px;
+        }
+
+        &.doodle26 {
+          background-image: url(../../../img/left-doodles-grid.png);
+          background-position: -225px -900px;
+          left: 490px;
+          top: 100px;
+          transform: scale(.45);
+          transform-origin: 0 0;
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .content {
+      .h1 {
+        margin-top: 20px;
+      }
+      h5 + p {
+        font-size: 1.125rem;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+
+    .doodles-scaler {
+      transform: scale(.75);
+    }
+
+    .content {
+      .h1 {
+        font-size: 2.75rem;
+      }
+
+      h5 + p {
+        font-size: 1rem;
+      }
+
+      p + hr {
+        margin-top: 35px;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+
+    .doodles-scaler {
+      transform: scale(1);
+    }
+
+    .content {
+      .h1 {
+        font-size: 3rem;
+
+      }
+
+      h5 + p {
+        font-size: 1.25rem;
+      }
+
+      p + hr {
+        margin-top: 40px;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

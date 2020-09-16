@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'Circe';
+  src: url('circe/Circe-Regular.eot');
+  src: local('Circe'), url('circe/Circe-Regular.eot?#iefix') format('embedded-opentype'),
+  url('circe/Circe-Regular.woff2') format('woff2'),
+  url('circe/Circe-Regular.woff') format('woff'),
+  url('circe/Circe-Regular.ttf') format('truetype'),
+  url('circe/Circe-Regular.svg#Circe-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circe';
+  src: url('circe/Circe-Light.eot');
+  src: local('Circe Light'), url('circe/Circe-Light.eot?#iefix') format('embedded-opentype'),
+  url('circe/Circe-Light.woff2') format('woff2'),
+  url('circe/Circe-Light.woff') format('woff'),
+  url('circe/Circe-Light.ttf') format('truetype'),
+  url('circe/Circe-Light.svg#Circe-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circe';
+  src: url('circe/Circe-Bold.eot');
+  src: local('Circe Bold'), url('circe/Circe-Bold.eot?#iefix') format('embedded-opentype'),
+  url('circe/Circe-Bold.woff2') format('woff2'),
+  url('circe/Circe-Bold.woff') format('woff'),
+  url('circe/Circe-Bold.ttf') format('truetype'),
+  url('circe/Circe-Bold.svg#Circe-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circe';
+  src: url('circe/Circe-ExtraLight.eot');
+  src: local('Circe Extra Light'), url('circe/Circe-ExtraLight.eot?#iefix') format('embedded-opentype'),
+  url('circe/Circe-ExtraLight.woff2') format('woff2'),
+  url('circe/Circe-ExtraLight.woff') format('woff'),
+  url('circe/Circe-ExtraLight.ttf') format('truetype'),
+  url('circe/Circe-ExtraLight.svg#Circe-ExtraLight') format('svg');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: 'Circe';
+  src: url('circe/Circe-ExtraBold.eot');
+  src: local('Circe Extra Bold'), url('circe/Circe-ExtraBold.eot?#iefix') format('embedded-opentype'),
+  url('circe/Circe-ExtraBold.woff2') format('woff2'),
+  url('circe/Circe-ExtraBold.woff') format('woff'),
+  url('circe/Circe-ExtraBold.ttf') format('truetype'),
+  url('circe/Circe-ExtraBold.svg#Circe-ExtraBold') format('svg');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circe';
+  src: url('circe/Circe-Thin.eot');
+  src: local('Circe Thin'), url('circe/Circe-Thin.eot?#iefix') format('embedded-opentype'),
+  url('circe/Circe-Thin.woff2') format('woff2'),
+  url('circe/Circe-Thin.woff') format('woff'),
+  url('circe/Circe-Thin.ttf') format('truetype'),
+  url('circe/Circe-Thin.svg#Circe-Thin') format('svg');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}

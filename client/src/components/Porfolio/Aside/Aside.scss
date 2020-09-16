@@ -1,0 +1,65 @@
+@import "src/scss/vars";
+
+
+.portfolio-info {
+
+
+  @include media-breakpoint-up(lg) {
+    width: 390px;
+    box-shadow: 11px 0 35px rgba(0,0,0,.5);
+    z-index: 1;
+    overflow: hidden;
+  }
+
+
+
+  .nav-link {
+    cursor: pointer!important;
+  }
+
+  .nav-tabs .nav-link:not(.active):hover,
+  .nav-tabs .nav-link:not(.active):focus {
+    border-color: transparent;
+  }
+  
+  .tab {
+    //font-size: 0.875rem;
+    font-weight: 300;
+    color: #c5c5c5;
+    //position: absolute;
+    left: 3rem;
+    right: 3rem;
+
+
+    &.portfolio-tab {
+
+      &.tab-enter-active
+       {
+        -webkit-animation-name: bounceInRight;
+        animation-name: bounceInRight;
+      }
+
+      &.tab-exit-active
+      {
+        -webkit-animation-name: bounceOutRight;
+        animation-name: bounceOutRight;
+      }
+    }
+
+    &.project-tab {
+      &.tab-enter-active
+      {
+        -webkit-animation-name: bounceInLeft;
+        animation-name: bounceInLeft;
+      }
+
+      &.tab-exit-active
+       {
+        -webkit-animation-name: bounceOutLeft;
+        animation-name: bounceOutLeft;
+      }
+    }
+
+
+  }
+}

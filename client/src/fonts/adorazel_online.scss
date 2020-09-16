@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'adorazel_online';
+  src: url('adorazel_online/adorazel_online.eot?1107124');
+  src: url('adorazel_online/adorazel_online.eot?1107124#iefix') format('embedded-opentype'),
+  url('adorazel_online/adorazel_online.woff2?1107124') format('woff2'),
+  url('adorazel_online/adorazel_online.woff?1107124') format('woff'),
+  url('adorazel_online/adorazel_online.ttf?1107124') format('truetype'),
+  url('adorazel_online/adorazel_online.svg?1107124#adorazel_online') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'adorazel_online';
+    src: url('adorazel_online/adorazel_online.svg?1107124#adorazel_online') format('svg');
+  }
+}
+*/
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "adorazel_online";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-html:before { content: '\e800'; } /* '' */
+.icon-react:before { content: '\e801'; } /* '' */
+.icon-redux:before { content: '\e802'; } /* '' */
+.icon-nodejs:before { content: '\e803'; } /* '' */
+.icon-php:before { content: '\e804'; } /* '' */
+.icon-modx:before { content: '\e805'; } /* '' */
+.icon-ecmascript:before { content: '\e806'; } /* '' */
+.icon-mail:before { content: '\e807'; } /* '' */
+.icon-search:before { content: '\e808'; } /* '' */
+.icon-css:before { content: '\e809'; } /* '' */
+.icon-javascript:before { content: '\e80a'; } /* '' */
+.icon-mongodb:before { content: '\e80b'; } /* '' */
+.icon-expressjs:before { content: '\e80c'; } /* '' */
+.icon-mysql:before { content: '\e80d'; } /* '' */
+.icon-extjs:before { content: '\e80e'; } /* '' */
+.icon-edit:before { content: '\e80f'; } /* '' */
+.icon-publish:before { content: '\e810'; } /* '' */
+.icon-unpublish:before { content: '\e811'; } /* '' */
+.icon-browse:before { content: '\e812'; } /* '' */
+.icon-soc-fb:before { content: '\e813'; } /* '' */
+.icon-soc-gh:before { content: '\e814'; } /* '' */
+.icon-soc-ig:before { content: '\e815'; } /* '' */
+.icon-soc-in:before { content: '\e816'; } /* '' */
+.icon-soc-mx:before { content: '\e817'; } /* '' */
+.icon-soc-tw:before { content: '\e818'; } /* '' */
+.icon-soc-vk:before { content: '\e819'; } /* '' */
+.icon-soc-yt:before { content: '\e81a'; } /* '' */
+.icon-hex:before { content: '\e81b'; } /* '' */
+.icon-hex-o:before { content: '\e81c'; } /* '' */
+.icon-more:before { content: '\e81d'; } /* '' */
+.icon-share:before { content: '\e81e'; } /* '' */
+.icon-trash:before { content: '\f083'; } /* '' */
+.icon-menu:before { content: '\f0c9'; } /* '' */
+.icon-mail-alt:before { content: '\f0e0'; } /* '' */
+.icon-skype:before { content: '\f17e'; } /* '' */
+.icon-paper-plane:before { content: '\f1d8'; } /* '' */
+.icon-comment:before { content: '\f27a'; } /* '' */
+.icon-comment-o:before { content: '\f27b'; } /* '' */
+.icon-telegram:before { content: '\f2c6'; } /* '' */
+.icon-icq:before { content: '\f304'; } /* '' */

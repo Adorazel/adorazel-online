@@ -1,0 +1,26 @@
+@import "src/scss/vars";
+
+.tiles-block {
+  padding: 20px 0 100px;
+  @include media-breakpoint-up(sm) {
+    padding: 45px 0 100px;
+  }
+  border-bottom: 1px solid #323233;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .2);
+
+  .tiles-grid {
+    @media (min-width: 451px) {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, calc((100% - 10px) / 2));
+    }
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(3, calc((100% - 20px) / 3));
+    }
+
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: repeat(4, calc((100% - 30px) / 4));
+    }
+  }
+}

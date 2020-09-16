@@ -1,0 +1,45 @@
+/* Slicebox Style */
+.sb-slider {
+  display: block;
+  margin: 10px auto;
+  position: relative;
+  overflow: hidden;
+  list-style-type: none;
+  padding: 0;
+}
+
+.sb-slider li {
+  margin: 0;
+  padding: 0;
+  ~ li {
+    display: none;
+  }
+}
+
+.sb-slider img {
+  max-width: 100%;
+  display: block;
+  transform: translateZ(0);
+}
+
+.sb-perspective {
+  position: relative;
+}
+
+.sb-cuboid {
+  position: absolute;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.sb-side {
+  margin: 0;
+  display: block;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+

@@ -1,0 +1,38 @@
+@import "../../scss/vars";
+
+.footer {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background-color: $common;
+  color: $white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+  box-shadow: 0 -11px 35px rgba(0, 0, 0, .5);
+  position: relative;
+  z-index: 2;
+
+  ul {
+    margin-left: -5px;
+    padding-right: -5px;
+  }
+
+  li {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  a {
+    font-size: 14px;
+    color: $white !important;
+    text-shadow: none !important;
+    display: block;
+    line-height: 14px;
+    height: 14px;
+  }
+
+  &__copyright {
+    font-size: 12px;
+    span {
+      vertical-align: 1px;
+    }
+  }
+}

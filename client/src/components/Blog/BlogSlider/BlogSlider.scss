@@ -1,0 +1,259 @@
+@import "src/scss/vars";
+
+.blog-slider__wrapper {
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 37.5%;
+  border-bottom: 3pt solid darken($accent, 10%);
+  background: $black;
+
+  &::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 -21px 35px fade(black, 50%);
+    transform: translate(0, 0);
+    pointer-events: none;
+  }
+
+  .slider-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.blog-slider {
+
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  .slick-slide {
+    border: none !important;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  figure {
+    position: relative;
+
+    &::after {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: black;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+      will-change: opacity;
+    }
+
+  }
+
+  .slick-center {
+    figure::after {
+      opacity: 0;
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translate(0, -50%);
+    max-width: 80%;
+    @include media-breakpoint-up(sm) {
+      max-width: 65%;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 50%;
+      margin-top: -30px;
+    }
+
+    .title {
+      text-shadow: 0 0 1px black, 0 0 5px black;
+      line-height: 1;
+      @media screen and (max-width: 767px) {
+        font-size: 1rem;
+      }
+    }
+
+    strong {
+      display: block;
+      font-size: 1.25em;
+      margin-top: 10px;
+      @include media-breakpoint-up(sm) {
+        font-size: 2em;
+        margin-top: 30px;
+      }
+      @include media-breakpoint-up(lg) {
+        font-size: 2em;
+      }
+      @include media-breakpoint-up(xl) {
+        font-size: 3em;
+      }
+    }
+  }
+
+  .slick-dots {
+    position: absolute;
+    top: 50%;
+    right: 100px;
+    transform: translate(0, -50%);
+    padding: 0;
+    margin: 0;
+
+    @media screen and (max-width: 767px) {
+      display: none !important;
+    }
+
+    button {
+      display: block;
+      font-size: 0;
+      padding: 0;
+      margin: 0;
+      border: 1px solid $white;
+      width: 10px;
+      height: 10px;
+      border-radius: 0;
+      background-color: transparent;
+      box-shadow: inset 0 0 1px black, inset 0 0 5px black, 0 0 1px black, 0 0 5px black;
+      transition: background 1s ease-in-out, box-shadow 1s ease-in-out;
+      appearance: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    > li {
+      display: block;
+      list-style: none;
+
+      + li {
+        margin-top: 10px;
+      }
+
+      &.slick-active {
+        button {
+          background-color: $white;
+          box-shadow: 0 0 1px black, 0 0 5px black;
+        }
+      }
+
+    }
+
+    &::after {
+      display: block;
+      content: attr(data-text);
+      font-size: 12px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      text-shadow: 0 0 1px black, 0 0 5px black;
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      margin-left: 30px;
+    }
+  }
+
+  .slick-arrow {
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 50%;
+    right: 52px;
+    transform: translateY(-50%);
+    z-index: 3;
+    transition: border .3s ease-in-out;
+
+    &:focus {
+      outline: none;
+    }
+
+    @media screen and (max-width: 767px) {
+      display: none !important;
+    }
+
+    span {
+      position: relative;
+      display: block;
+      width: 38px;
+      height: 38px;
+
+      &:hover {
+
+      }
+
+      &::before {
+        display: block;
+        content: "";
+        width: 11px;
+        height: 11px;
+        border-left: 2px solid $white;
+        border-top: 2px solid $white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+      }
+
+      &::after {
+        display: block;
+        content: "";
+        width: 2px;
+        height: 20px;
+        background-color: $white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -1px;
+      }
+    }
+
+    &.slick-prev {
+      margin-top: -100px;
+
+      span {
+        &::before {
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &::after {
+          margin-top: -5px;
+        }
+      }
+    }
+
+    &.slick-next {
+      margin-top: 100px;
+
+      span {
+        &::before {
+          transform: translate(-50%, -50%) rotate(-135deg);
+        }
+
+        &::after {
+          margin-top: -15px;
+        }
+      }
+    }
+
+  }
+}
+

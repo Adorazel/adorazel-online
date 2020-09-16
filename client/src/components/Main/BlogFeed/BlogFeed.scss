@@ -1,0 +1,61 @@
+@import "src/scss/vars";
+
+.blog-feed {
+
+
+
+  &__post {
+    color: $gray-500;
+
+    .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .img-wrapper {
+      position: relative;
+      &::before {
+        display: block;
+        content: "";
+        padding-bottom: 100%;
+      }
+    }
+
+    img, .placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .h6 {
+      font-size: .875rem;
+      line-height: 1.5;
+      color: #c5c5c5;
+      transition: color .25s;
+    }
+
+    p {
+      font-size: .6875rem;
+      color: #858585;
+      transition: color .25s;
+    }
+
+    &:hover {
+      .h6 {
+        color: $white;
+      }
+
+      p {
+        color: #c5c5c5;
+      }
+
+      .overflow-hidden > img {
+        transform: scale(1.3);
+        transition: transform 1s ease-in-out
+      }
+    }
+  }
+}
