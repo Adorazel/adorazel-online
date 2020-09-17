@@ -1,5 +1,5 @@
 FROM node:12-alpine as builder
-WORKDIR /usr/src/website.app
+WORKDIR /usr/src/adorazel.online
 COPY . .
 RUN npm install
 RUN npm run client:install

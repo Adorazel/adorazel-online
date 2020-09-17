@@ -10,18 +10,18 @@ const RightColumn = () => {
 
   const parser = new Parser()
 
-  const [soft, setSoft] = useState(null)
+  const [tools, setTools] = useState(null)
   const [education, setEducation] = useState(null)
 
   const {request} = useHttp()
 
-  const getSoft = useCallback(async () => {
-    const data = await request(...GET_ALL("soft", {
+  const getTools = useCallback(async () => {
+    const data = await request(...GET_ALL("tools", {
       published: true,
-      owner: "about/soft"
+      owner: "about/tools"
     }))
-    data && setSoft(data)
-  }, [request, setSoft])
+    data && setTools(data)
+  }, [request, setTools])
 
   const getEducation = useCallback(async () => {
     const data = await request(...GET_ALL("education", {
@@ -33,9 +33,9 @@ const RightColumn = () => {
   }, [request, setEducation])
 
   useEffect(() => {
-    if (!soft) getSoft()
     if (!education) getEducation()
-  }, [soft, education, getSoft, getEducation])
+    if (!tools) getTools()
+  }, [tools, education, getTools, getEducation])
 
   const spinner = <div className="d-flex justify-content-center align-items-center py-5">
     <div className="spinner-border text-primary"/>
@@ -54,10 +54,10 @@ const RightColumn = () => {
           </li>
         ))}
       </ul>}
-      <h3 className="h3 title dotted mb-3 mt-4">Software</h3>
-      {!soft && spinner}
-      {soft && <ul className="list-unstyled skills">
-        {soft.map(({title, rating}) => (
+      <h3 className="h3 title dotted mb-3 mt-4">Tools</h3>
+      {!tools && spinner}
+      {tools && <ul className="list-unstyled skills">
+        {tools.map(({title, rating}) => (
           <li key={title} className="d-flex justify-content-start align-items-center">
           <span className="d-flex mr-3 text-primary">
             {getRating(rating).map((icon, i) => <i key={i} className={icon}/>)}

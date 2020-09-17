@@ -10,8 +10,8 @@ const LEXICON = {
   dashboard: "Панель управления",
   main: "Главная",
   tiles: "Плитки",
-  skills: "Навыки",
-  soft: "Software",
+  skills: "Skills",
+  tools: "Tools",
   social: "Социальные сети",
   portfolio: "Портфолио",
   projects: "Проекты",
@@ -96,7 +96,7 @@ const CONFIG = {
       skills: {
         fields: ["title", "rating"],
       },
-      soft: {
+      tools: {
         fields: ["title", "rating"],
       },
       social: {

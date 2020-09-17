@@ -11,11 +11,11 @@ process.models = {
   "skills": require("./models/Item"),
   "slides": require("./models/Slide"),
   "social": require("./models/Item"),
-  "soft": require("./models/Item"),
   "posts": require("./models/Post"),
   "projects": require("./models/Project"),
   "tags": require("./models/Tag"),
   "tiles": require("./models/Project"),
+  "tools": require("./models/Item"),
   "work": require("./models/Exp"),
 }
 
@@ -52,9 +52,9 @@ app.use("/api/v1/settings", require("./routes/items.routes"))
 app.use("/api/v1/skills", require("./routes/items.routes"))
 app.use("/api/v1/slides", require("./routes/items.routes"))
 app.use("/api/v1/social", require("./routes/items.routes"))
-app.use("/api/v1/soft", require("./routes/items.routes"))
 app.use("/api/v1/tags", require("./routes/items.routes"))
 app.use("/api/v1/tiles", require("./routes/items.routes"))
+app.use("/api/v1/tools", require("./routes/items.routes"))
 app.use("/api/v1/work", require("./routes/items.routes"))
 
 

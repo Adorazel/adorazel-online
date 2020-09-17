@@ -1,0 +1,25 @@
+version: "3"
+
+networks:
+  web:
+    external: true
+
+volumes:
+  uploads:
+
+services:
+  site:
+    build: .
+    restart: always
+    labels:
+      - traefik.backend=site
+      - traefik.frontend.rule=Host:adorazel.online
+      - traefik.docker.network=web
+      - traefik.port=5000
+    networks:
+      - web
+    volumes:
+      - uploads:/usr/src/adorazel.online/files
+
+
+

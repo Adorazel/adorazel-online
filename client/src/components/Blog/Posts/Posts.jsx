@@ -118,7 +118,7 @@ const Posts = () => {
                 <img src={gallery[i][0]} alt={title}/>
               </div>
               <div className="card-body text-center">
-                <h5 className="card-title">{longtitle}</h5>
+                <h5 className="card-title">{parser.parse(longtitle)}</h5>
                 <div className="published text-uppercase">{getDate(publishedon)}</div>
                 {parser.parse(introtext)}
                 <Link to={`/blog/${_id}`} className="btn btn-outline-primary text-uppercase">Читать дальше</Link>

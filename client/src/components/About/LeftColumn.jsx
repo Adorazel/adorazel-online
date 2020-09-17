@@ -31,8 +31,8 @@ const LeftColumn = () => {
   }, [request, setWork])
 
   useEffect(() => {
-    if (!skills) getSkills()
     if (!work) getWork()
+    if (!skills) getSkills()
   }, [skills, work, getSkills, getWork])
 
   const spinner = <div className="d-flex justify-content-center align-items-center py-5">
