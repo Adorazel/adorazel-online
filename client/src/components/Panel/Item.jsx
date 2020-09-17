@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from "react"
+import React, {useCallback, useContext, useEffect, useRef, useState} from "react"
 import {Link, useHistory} from "react-router-dom"
 import {GET_FIELDS, GET, CREATE, EDIT} from "../../api"
 import useHttp from "../../hooks/http.hook"
@@ -248,12 +248,27 @@ const Item = ({panel, section, tab, action, params: {id}, lexicon, galleryConfig
 
   const isReady = !loading && formIsReady
 
+  const saveBtn = useRef()
+
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.keyCode === 83 && (navigator.platform.match("Mac") ? event.metaKey : event.ctrlKey)) {
+        event.preventDefault()
+        saveBtn.current.click()
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown)
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
+
   return <>
     <div className="d-flex align-items-end pt-4 pb-3">
       <Link to={`/${panel}/${section}/${tab}`} className="btn btn-outline-primary text-uppercase"
             disabled={sending}>Назад</Link>
       <h1 className="h4 text-center text-uppercase w-100 m-0">{action === "create" ? "Создание" : "Редактирование"}</h1>
-      <button className="btn btn-primary text-uppercase"
+      <button className="btn btn-primary text-uppercase" ref={saveBtn}
               onClick={submitHandler.bind(this, getSubmitOptions())} disabled={sending}>
         {action === "create" ? "Создать" : "Обновить"}
       </button>

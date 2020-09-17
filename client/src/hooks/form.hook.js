@@ -18,7 +18,7 @@ const useForm = ({initialState, onSuccess, onError}) => {
   }
 
   if (!isFunction(onError)) onError = error => {
-
+    if (error && error.message) alert({text: error.message, type: "error"})
     if (error && error.data) {
       const param = error.data[0].param
       setForm({
@@ -29,7 +29,6 @@ const useForm = ({initialState, onSuccess, onError}) => {
         }
       })
     }
-    if (error && error.message) alert({text: error.message, type: "error"})
     clearError()
   }
 
@@ -57,14 +56,14 @@ const useForm = ({initialState, onSuccess, onError}) => {
       }
     }
 
-    if (target.min  && target.value < target.min ) {
+    if (target.min && target.value < target.min) {
       target = {
         name: target.name,
         value: target.min,
       }
     }
 
-    if (target.max  && target.value > target.max ) {
+    if (target.max && target.value > target.max) {
       target = {
         name: target.name,
         value: target.max,

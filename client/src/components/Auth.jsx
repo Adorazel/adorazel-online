@@ -29,6 +29,10 @@ export const Auth = ({ADMIN, AUTH}) => {
     emailRef.current.focus()
   }, [])
 
+  const handleKeyDown = ({key}) => {
+    if (key === "Enter") submitHandler(LOGIN(requestBody))
+  }
+
   return (
     <section className="auth-page w-100">
       <div className="container py-5">
@@ -52,6 +56,7 @@ export const Auth = ({ADMIN, AUTH}) => {
                          className={`form-control${ADMIN ? " mb-4" : ""}${form.login.isValid ? "" : " is-invalid"}`}
                          aria-describedby="loginHelp"
                          value={form.login.value} onChange={changeHandler} disabled={sending}
+                         onKeyDown={handleKeyDown.bind(this)}
                          onFocus={focusHandler} onBlur={blurHandler}
                          ref={emailRef}
                   />
@@ -64,8 +69,10 @@ export const Auth = ({ADMIN, AUTH}) => {
                   <input type="password" id="password" name="password" placeholder="Пароль" data-placeholder="Пароль"
                          className={`form-control${ADMIN ? " mb-4" : ""}${form.password.isValid ? "" : " is-invalid"}`}
                          aria-describedby="passwordHelp"
+                         value={form.password.value} onChange={changeHandler} disabled={sending}
+                         onKeyDown={handleKeyDown.bind(this)}
                          onFocus={focusHandler} onBlur={blurHandler}
-                         value={form.password.value} onChange={changeHandler} disabled={sending}/>
+                  />
                   {!ADMIN && <small id="passwordHelp" className="form-text text-muted">
                     Пароль должен содержать не менее 6 символов.
                   </small>}
