@@ -2,6 +2,7 @@
   "port": 5000,
   "mongoUrl": "",
   "jwtSecret": "",
+  "sitemapBaseUrl": "http://example.com",
   "smtp": {
     "transporter": {
       "host": "smtp.example.com",
@@ -13,7 +14,7 @@
       }
     },
     "options": {
-      "from": "\"Fred Foo 👻\" <foo@example.com>",
+      "from": "\"Fred Foo\" <foo@example.com>",
       "to": "bar@example.com, baz@example.com"
     }
   },

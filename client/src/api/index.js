@@ -64,8 +64,8 @@ export const PUBLISH = (uri, id, published, token) => {
   return [API_ROOT + `/${uri}/` + id, "PATCH", {published}, {...AUTH(token), ...JSON_TYPE}]
 }
 
-export const DELETE = (uri, id, token) => {
-  return [API_ROOT + `/${uri}/` + id, "DELETE", null, AUTH(token)]
+export const DELETE = (uri, id, owner, token) => {
+  return [API_ROOT + `/${uri}/` + id + objToUrl({owner}), "DELETE", null, AUTH(token)]
 }
 
 

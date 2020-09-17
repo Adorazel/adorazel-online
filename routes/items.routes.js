@@ -1,13 +1,16 @@
 const {Router} = require("express")
 const auth = require("../middleware/auth.middleware")
 const autoIncrement = require("../middleware/increment.middleware")
+const sitemap = require("../processors/sitemap.processor")
 
 const router = Router()
+
+const getModel = req => req.baseUrl.split("/")[3].toLowerCase()
 
 // Получение полей
 router.get("/fields", auth, autoIncrement, async (req, res) => {
   try {
-    const model = req.baseUrl.split("/")[3].toLowerCase()
+    const model = getModel(req)
     if (process.models[model].fields.position) {
       process.models[model].fields.position.defaultValue = req.body.position
     }
@@ -21,7 +24,7 @@ router.get("/fields", auth, autoIncrement, async (req, res) => {
 // Получение одного
 router.get("/:id", async (req, res) => {
   try {
-    const model = req.baseUrl.split("/")[3].toLowerCase()
+    const model = getModel(req)
     const item = await process.models[model].model.findById(req.params.id)
     res.json(item)
   } catch (e) {
@@ -33,7 +36,7 @@ router.get("/:id", async (req, res) => {
 // Получение всех
 router.get("", async (req, res) => {
   try {
-    const model = req.baseUrl.split("/")[3].toLowerCase()
+    const model = getModel(req)
     const sortDir = req.query.sort || "asc"
     req.query.sort && delete req.query.sort
     const items = await process.models[model].model.find({...req.query}, null, {sort: {position: sortDir}})
@@ -45,12 +48,16 @@ router.get("", async (req, res) => {
 })
 
 // Создание
-router.post("", auth, autoIncrement, async (req, res) => {
+router.post("", auth, async (req, res) => {
   try {
-    const model = req.baseUrl.split("/")[3].toLowerCase()
+    const model = getModel(req)
     const item = new process.models[model].model(req.body)
     await item.save()
-    res.json({data: item, message: "Успешно создано"})
+
+    await sitemap.set(req, item._id, () => {
+      res.json({data: item, message: "Успешно создано"})
+    })
+
   } catch (e) {
     if (process.env.NODE_ENV === "development") console.log(e)
     res.status(500).json({message: "Создание не удалось!"})
@@ -60,9 +67,13 @@ router.post("", auth, autoIncrement, async (req, res) => {
 // Обновление
 router.put("/:id", auth, async (req, res) => {
   try {
-    const model = req.baseUrl.split("/")[3].toLowerCase()
+    const model = getModel(req)
     const item = await process.models[model].model.findByIdAndUpdate(req.params.id, req.body)
-    res.json({data: item, message: "Успешно обновлено"})
+
+    await sitemap.set(req, req.params.id, () => {
+      res.json({data: item, message: "Успешно обновлено"})
+    })
+
   } catch (e) {
     if (process.env.NODE_ENV === "development") console.log(e)
     res.status(500).json({message: "Обновление не удалось!"})
@@ -72,9 +83,13 @@ router.put("/:id", auth, async (req, res) => {
 // Публикация
 router.patch("/:id", auth, async (req, res) => {
   try {
-    const model = req.baseUrl.split("/")[3].toLowerCase()
+    const model = getModel(req)
     await process.models[model].model.findByIdAndUpdate(req.params.id, req.body)
-    res.json({published: req.body.published})
+
+    await sitemap.set(req, req.params.id, () => {
+      res.json({published: req.body.published})
+    })
+
   } catch (e) {
     if (process.env.NODE_ENV === "development") console.log(e)
     res.status(500).json({message: "Не удалось обновить статус публикации!"})
@@ -85,9 +100,13 @@ router.patch("/:id", auth, async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
   try {
     // TODO Реализовать удаление прикрепленных файлов
-    const model = req.baseUrl.split("/")[3].toLowerCase()
+    const model = getModel(req)
     await process.models[model].model.findByIdAndDelete(req.params.id)
-    res.json({message: "Успешно удалено"})
+
+    await sitemap.set(req, req.params.id, () => {
+      res.json({message: "Успешно удалено"})
+    })
+
   } catch (e) {
     if (process.env.NODE_ENV === "development") console.log(e)
     res.status(500).json({message: "Удаление не удалось!"})

@@ -2,6 +2,10 @@ const express = require("express")
 const fileUpload = require('express-fileupload')
 const mongoose = require("mongoose")
 const path = require("path")
+const expressSitemap = require("express-sitemap-xml")
+const expressRobots = require("express-robots-txt")
+const sitemap = require("./processors/sitemap.processor")
+const robots = require("./processors/robots.processor")
 const config = require("config")
 
 process.models = {
@@ -38,6 +42,9 @@ app.use(fileUpload({
   abortOnLimit: true,
   responseOnLimit: "Достигнут предел размера файла",
 }))
+
+app.use(expressSitemap(sitemap.get, config.get("sitemapBaseUrl")))
+app.use(expressRobots(robots()))
 
 app.use("/files", express.static(path.join(__dirname, "files")))
 
@@ -78,7 +85,7 @@ async function start() {
   }
 }
 
-start().then(()=>{
+start().then(() => {
   app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
 })
 

@@ -1,11 +1,13 @@
 import React, {useCallback, useEffect, useState} from "react"
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom"
+import {YMInitializer} from "react-yandex-metrika"
+import ReactGA from "react-ga"
 import StorageContext from "./context/StorageContext"
 import AdminContext from "./context/AdminContext"
 import UserContext from "./context/UserContext"
 import NavContext from "./context/NavContext"
 import SettingsContext from "./context/SettingsContext"
-import {Helmet} from "react-helmet"
+
 
 import PageWrapper from "./hoc/PageWrapper"
 import MainPage from "./pages/MainPage"
@@ -20,6 +22,7 @@ import ContactPage from "./pages/ContactPage"
 import AdminPage from "./pages/AdminPage"
 import DashboardPage from "./pages/DashboardPage"
 import NotFountPage from "./pages/NotFoundFage"
+import HeadMeta from "./components/HeadMeta"
 
 import useAuth from "./hooks/auth.hook"
 import useStorage from "./hooks/storage.hook"
@@ -27,6 +30,7 @@ import useHttp from "./hooks/http.hook"
 import {GET_ALL} from "./api"
 
 import {v4 as uuidv4} from "uuid"
+import * as JivoSite from "react-jivosite";
 
 
 const nav = [{
@@ -92,83 +96,79 @@ function App() {
   //   }
   // }
 
+  let gaId = null
+  if (settings) gaId = settings.global_analytics
+
+  useEffect(() => {
+    const pathname = window.location.pathname
+    if (gaId && pathname !== "/admin" && pathname !== "/dashboard") {
+      ReactGA.initialize(gaId)
+      ReactGA.pageview(pathname + window.location.search)
+    }
+  }, [gaId])
+
   return (
     <StorageContext.Provider value={{...storage}}>
       <AdminContext.Provider value={{...adminLogin}}>
         <UserContext.Provider value={{...userLogin}}>
           <NavContext.Provider value={[...nav, /*manage*/]}>
             <SettingsContext.Provider value={{...settings}}>
-            <Helmet>
-              <title>Adorazel Online</title>
-              <meta name="title" content="Adorazel Online"/>
+              <HeadMeta/>
+              {settings && settings.global_metrika && <YMInitializer
+                accounts={[+settings.global_metrika]}
+                options={{webvisor: true}}
+              />}
+              {settings && settings.global_jivosite && <JivoSite.Widget
+                id={settings.global_jivosite}
+              />}
+              <Router>
+                <PageWrapper excludedPaths={/(admin|dashboard)/gi}>
+                  <Switch>
+                    {/* Редиректы со старого сайта */}
+                    <Route exact path="/about-me/">
+                      <Redirect to="/about"/>
+                    </Route>
+                    <Route exact path="/portfolio/shop-happy-ocean/">
+                      <Redirect to="/portfolio/5f5608a6dc3c51020bdd7abd"/>
+                    </Route>
+                    <Route exact path="/portfolio/intergroup/">
+                      <Redirect to="/portfolio/5f560866dc3c51020bdd7aba"/>
+                    </Route>
+                    <Route exact path="/portfolio/wizart/">
+                      <Redirect to="/portfolio/5f560796dc3c51020bdd7ab5"/>
+                    </Route>
+                    <Route exact path="/portfolio/artisan/">
+                      <Redirect to="/portfolio/5f560761dc3c51020bdd7ab3"/>
+                    </Route>
+                    <Route exact path="/portfolio/companion/">
+                      <Redirect to="/portfolio/5f560716dc3c51020bdd7ab1"/>
+                    </Route>
+                    <Route exact path="/portfolio/delfin/">
+                      <Redirect to="/portfolio/5f5606b3dc3c51020bdd7aae"/>
+                    </Route>
+                    <Route exact path="/portfolio/metronix/">
+                      <Redirect to="/portfolio/5f560656dc3c51020bdd7aac"/>
+                    </Route>
+                    <Route exact path="/blog/24-metronix/">
+                      <Redirect to="/blog/5f5f0d15bb119908c9c72ddd"/>
+                    </Route>
 
-              <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-              <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-              <link rel="apple-touch-icon" sizes="57x57" href="/static/meta/apple-icon-57x57.png"/>
-              <link rel="apple-touch-icon" sizes="60x60" href="/static/meta/apple-icon-60x60.png"/>
-              <link rel="apple-touch-icon" sizes="72x72" href="/static/meta/apple-icon-72x72.png"/>
-              <link rel="apple-touch-icon" sizes="76x76" href="/static/meta/apple-icon-76x76.png"/>
-              <link rel="apple-touch-icon" sizes="114x114" href="/static/meta/apple-icon-114x114.png"/>
-              <link rel="apple-touch-icon" sizes="120x120" href="/static/meta/apple-icon-120x120.png"/>
-              <link rel="apple-touch-icon" sizes="144x144" href="/static/meta/apple-icon-144x144.png"/>
-              <link rel="apple-touch-icon" sizes="152x152" href="/static/meta/apple-icon-152x152.png"/>
-              <link rel="apple-touch-icon" sizes="180x180" href="/static/meta/apple-icon-180x180.png"/>
-              <link rel="manifest" href="/static/meta/manifest.json"/>
-              <meta name="msapplication-config" content="/static/meta/browserconfig.xml"/>
-              <meta name="theme-color" content="#1b1b1c"/>
-              <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-
-              <meta property="og:type" content="website"/>
-              <meta property="og:url" content={window.location.href}/>
-              <meta property="og:locale" content="ru_RU"/>
-              <meta property="og:title" content="Adorazel Online"/>
-              <meta property='og:site_name' content='Adorazel Online'/>
-              <meta property="og:description" content=""/>
-              <meta property="og:image" content={`${window.location.origin}/static/meta/logo-share.png`}/>
-
-              <meta name="twitter:card" content="summary_large_image"/>
-              <meta name="twitter:url" content={window.location.href}/>
-              <meta name="twitter:title" content="Adorazel Online"/>
-              <meta name="twitter:description" content=""/>
-              <meta name="twitter:image" content={`${window.location.origin}/static/meta/logo-share.png`}/>
-              <meta name="twitter:site" content="@Adorazel"/>
-              <meta name="twitter:creator" content="@Adorazel"/>
-
-              <link rel="canonical" href={window.location.href}/>
-              <link rel="alternate" href={window.location.href} hrefLang="x-default"/>
-
-              <meta name="description" content=""/>
-              <meta name="keywords" content=""/>
-              <meta name="robots" content="index, follow"/>
-
-              <meta name="author" content="Adorazel"/>
-              <meta name="copyright" content="Adorazel"/>
-
-              <base href={window.location.origin}/>
-
-              <meta name="format-detection" content="telephone=no"/>
-              <meta name="format-detection" content="address=no"/>
-
-            </Helmet>
-            <Router>
-              <PageWrapper>
-                <Switch>
-                  <Route exact path="/portfolio/:id"><ProjectPage/></Route>
-                  <Route exact path="/blog/:id"><PostPage/></Route>
-                  <Route path="/portfolio"><PortfolioPage/></Route>
-                  <Route path="/blog"><BlogPage/></Route>
-                  <Route exact path="/about"><AboutPage/></Route>
-                  <Route exact path="/contact"><ContactPage/></Route>
-                  <Route exact path="/admin">{!adminLogin.isLogin ? <AdminPage/> : <Redirect to="/dashboard"/>}</Route>
-                  <Route path="/dashboard">{adminLogin.isLogin ? <DashboardPage/> : <Redirect to="/admin"/>}</Route>
-                  {/*<Route exact path="/login">{!userLogin.isLogin ? <LoginPage/> : <Redirect to="/cabinet"/>}</Route>*/}
-                  {/*<Route path="/cabinet">{userLogin.isLogin ? <CabinetPage/> : <Redirect to="/login"/>}</Route>*/}
-                  <Route exact path="/"><MainPage/></Route>
-                  <Route><NotFountPage/></Route>
-                </Switch>
-              </PageWrapper>
-            </Router>
+                    <Route exact path="/portfolio/:id"><ProjectPage/></Route>
+                    <Route exact path="/blog/:id"><PostPage/></Route>
+                    <Route path="/portfolio"><PortfolioPage/></Route>
+                    <Route path="/blog"><BlogPage/></Route>
+                    <Route exact path="/about"><AboutPage/></Route>
+                    <Route exact path="/contact"><ContactPage/></Route>
+                    <Route exact path="/admin">{!adminLogin.isLogin ? <AdminPage/> :
+                      <Redirect to="/dashboard"/>}</Route>
+                    <Route path="/dashboard">{adminLogin.isLogin ? <DashboardPage/> : <Redirect to="/admin"/>}</Route>
+                    {/*<Route exact path="/login">{!userLogin.isLogin ? <LoginPage/> : <Redirect to="/cabinet"/>}</Route>*/}
+                    {/*<Route path="/cabinet">{userLogin.isLogin ? <CabinetPage/> : <Redirect to="/login"/>}</Route>*/}
+                    <Route exact path="/"><MainPage/></Route>
+                    <Route><NotFountPage/></Route>
+                  </Switch>
+                </PageWrapper>
+              </Router>
             </SettingsContext.Provider>
           </NavContext.Provider>
         </UserContext.Provider>

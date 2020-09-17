@@ -52,7 +52,7 @@ const List = ({panel, section, tab, fields, lexicon}) => {
     confirm({
       text: "Вы действительно хотите это удалить?",
       onSubmit: async () => {
-        const data = await request(...DELETE(tab, id, token))
+        const data = await request(...DELETE(tab, id, `${section}/${tab}`, token))
         if (data) {
           alert({text: data.message, type: "success"})
           getItemsAll()
