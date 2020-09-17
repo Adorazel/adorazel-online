@@ -14,17 +14,16 @@
 
 Отредактировать конфигурационные файлы `default.json` (development) и `production.json`.
 
-## Установка
-
-Выполнить:
-
-    npm install
-    npm run client:install  
 
 ## Разработка
 
-Выполнить:
+Установка:
 
+    npm install
+    npm run client:install
+    
+Запуск:
+    
     npm run dev 
     
 ## Развертывание
