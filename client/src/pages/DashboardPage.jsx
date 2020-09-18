@@ -24,6 +24,7 @@ const LEXICON = {
   tags: "Тэги",
   contacts: "Контакты",
   seo: "SEO",
+  redirects: "Редиректы",
   global: "Глобальные настройки",
 
   // fields
@@ -134,6 +135,9 @@ const CONFIG = {
     global: {
       seo: {
         fields: ["key", "value"],
+      },
+      redirects: {
+        fields: ["from", "to"],
       },
     }
   }
