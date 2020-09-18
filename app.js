@@ -13,6 +13,7 @@ const robots = require("./processors/robots.processor")
 const PORT = config.get("port") || 5000
 
 process.models = {
+  "admins": require("./models/Admin"),
   "education": require("./models/Exp"),
   "posts": require("./models/Post"),
   "projects": require("./models/Project"),
@@ -25,8 +26,11 @@ process.models = {
   "tags": require("./models/Tag"),
   "tiles": require("./models/Project"),
   "tools": require("./models/Item"),
+  "users": require("./models/User"),
   "work": require("./models/Exp"),
 }
+
+process.getModel = req => req.baseUrl.split("/")[3].toLowerCase()
 
 mongoose.set("useFindAndModify", false)
 
@@ -48,27 +52,34 @@ app.use(fileUpload({
 
 app.use(compression({level: 9}))
 app.use(express.json())
-app.use(expressSitemap(sitemap.get, config.get("sitemapBaseUrl")))
-app.use(expressRobots(robots()))
 
 app.use("/api/v1/auth", require("./routes/auth.routes"))
-app.use("/api/v1/education", require("./routes/items.routes"))
 app.use("/api/v1/files", require("./routes/files.routes"))
 app.use("/api/v1/forms", require("./routes/forms.routes"))
-app.use("/api/v1/posts", require("./routes/items.routes"))
-app.use("/api/v1/projects", require("./routes/items.routes"))
-app.use("/api/v1/redirects", require("./routes/items.routes"))
-app.use("/api/v1/seo", require("./routes/items.routes"))
-app.use("/api/v1/settings", require("./routes/items.routes"))
-app.use("/api/v1/skills", require("./routes/items.routes"))
-app.use("/api/v1/slides", require("./routes/items.routes"))
-app.use("/api/v1/social", require("./routes/items.routes"))
-app.use("/api/v1/tags", require("./routes/items.routes"))
-app.use("/api/v1/tiles", require("./routes/items.routes"))
-app.use("/api/v1/tools", require("./routes/items.routes"))
-app.use("/api/v1/work", require("./routes/items.routes"))
+
+const itemsPaths = [
+  "/api/v1/education",
+  "/api/v1/posts",
+  "/api/v1/projects",
+  "/api/v1/redirects",
+  "/api/v1/seo",
+  "/api/v1/settings",
+  "/api/v1/skills",
+  "/api/v1/slides",
+  "/api/v1/social",
+  "/api/v1/tags",
+  "/api/v1/tiles",
+  "/api/v1/tools",
+  "/api/v1/work",
+]
+
+itemsPaths.map(path => {
+  app.use(path, require("./routes/items.routes"))
+})
 
 app.use("/files", express.static(path.join(__dirname, "files"), {maxAge: "1y"}))
+app.use(expressSitemap(sitemap.get, config.get("sitemapBaseUrl")))
+app.use(expressRobots(robots()))
 
 if (process.env.NODE_ENV === "production") {
 

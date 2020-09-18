@@ -14,6 +14,12 @@ export const REGISTRATION = body => {
   return [API_ROOT + "/auth/registration", "POST", body, JSON_TYPE]
 }
 
+export const CHECK_ADMIN = () => {
+  return [API_ROOT + "/auth/check", "GET", null]
+}
+
+
+
 // FILE
 
 export const POST_FILE = (body, token) => {

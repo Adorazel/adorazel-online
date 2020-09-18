@@ -1,11 +1,14 @@
-import React, {useEffect, useRef} from "react"
+import React, {useCallback, useEffect, useRef, useState} from "react"
 import useForm from "../hooks/form.hook"
-import {LOGIN, REGISTRATION} from "../api"
+import useHttp from "../hooks/http.hook"
+import {CHECK_ADMIN, LOGIN, REGISTRATION} from "../api"
 
 
 export const Auth = ({ADMIN, AUTH}) => {
 
+  const [adminExist, setAdminExist] = useState(null)
   const emailRef = useRef(null)
+  const {request} = useHttp()
 
   const {form, changeHandler, submitHandler, focusHandler, blurHandler, sending} = useForm({
     initialState: {
@@ -19,19 +22,28 @@ export const Auth = ({ADMIN, AUTH}) => {
   })
 
   const requestBody = {
-    type: ADMIN ? "Admin" : "User",
+    model: ADMIN ? "admins" : "users",
     login: form.login.value,
     password: form.password.value,
     email: form.email.value,
   }
 
-  useEffect(() => {
-    emailRef.current.focus()
-  }, [])
-
   const handleKeyDown = ({key}) => {
     if (key === "Enter") submitHandler(LOGIN(requestBody))
   }
+
+  const getAdmin = useCallback(async () => {
+    const data = await request(...CHECK_ADMIN())
+    data && setAdminExist(data.exist)
+  }, [request])
+
+  useEffect(() => {
+    if (!adminExist) getAdmin()
+  }, [adminExist, getAdmin])
+
+  useEffect(() => {
+    emailRef.current.focus()
+  }, [])
 
   return (
     <section className="auth-page w-100">
@@ -82,7 +94,7 @@ export const Auth = ({ADMIN, AUTH}) => {
                         disabled={sending}>
                   Войти
                 </button>
-                {!ADMIN && <button className="btn btn-outline-primary text-uppercase"
+                {adminExist === "no" && <button className="btn btn-outline-primary text-uppercase"
                                    onClick={submitHandler.bind(this, REGISTRATION(requestBody))}
                                    disabled={sending}>
                   Зарегистрироваться

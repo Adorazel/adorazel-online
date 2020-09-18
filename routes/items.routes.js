@@ -5,12 +5,10 @@ const sitemap = require("../processors/sitemap.processor")
 
 const router = Router()
 
-const getModel = req => req.baseUrl.split("/")[3].toLowerCase()
-
 // Получение полей
 router.get("/fields", auth, autoIncrement, async (req, res) => {
   try {
-    const model = getModel(req)
+    const model = process.getModel(req)
     if (process.models[model].fields.position) {
       process.models[model].fields.position.defaultValue = req.body.position
     }
@@ -24,7 +22,7 @@ router.get("/fields", auth, autoIncrement, async (req, res) => {
 // Получение одного
 router.get("/:id", async (req, res) => {
   try {
-    const model = getModel(req)
+    const model = process.getModel(req)
     const item = await process.models[model].model.findById(req.params.id)
     res.json(item)
   } catch (e) {
@@ -36,7 +34,7 @@ router.get("/:id", async (req, res) => {
 // Получение всех
 router.get("", async (req, res) => {
   try {
-    const model = getModel(req)
+    const model = process.getModel(req)
     const sortDir = req.query.sort || "asc"
     req.query.sort && delete req.query.sort
     const items = await process.models[model].model.find({...req.query}, null, {sort: {position: sortDir}})
@@ -50,7 +48,7 @@ router.get("", async (req, res) => {
 // Создание
 router.post("", auth, async (req, res) => {
   try {
-    const model = getModel(req)
+    const model = process.getModel(req)
     const item = new process.models[model].model(req.body)
     await item.save()
 
@@ -67,7 +65,7 @@ router.post("", auth, async (req, res) => {
 // Обновление
 router.put("/:id", auth, async (req, res) => {
   try {
-    const model = getModel(req)
+    const model = process.getModel(req)
     const item = await process.models[model].model.findByIdAndUpdate(req.params.id, req.body)
 
     await sitemap.set(req, req.params.id, () => {
@@ -83,7 +81,7 @@ router.put("/:id", auth, async (req, res) => {
 // Публикация
 router.patch("/:id", auth, async (req, res) => {
   try {
-    const model = getModel(req)
+    const model = process.getModel(req)
     await process.models[model].model.findByIdAndUpdate(req.params.id, req.body)
 
     await sitemap.set(req, req.params.id, () => {
@@ -100,7 +98,7 @@ router.patch("/:id", auth, async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
   try {
     // TODO Реализовать удаление прикрепленных файлов
-    const model = getModel(req)
+    const model = process.getModel(req)
     await process.models[model].model.findByIdAndDelete(req.params.id)
 
     await sitemap.set(req, req.params.id, () => {

@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from "react"
 
 const INITIAL_STATE = {
   token: null,
-  userId: null,
+  id: null,
   isLogin: false,
   isReady: false
 }
@@ -11,9 +11,9 @@ const useAuth = (STORAGE_NAME) => {
 
   const [state, setState] = useState(INITIAL_STATE)
 
-  const login = useCallback(({token, userId, expiresIn}) => {
-    localStorage.setItem(STORAGE_NAME, JSON.stringify({token, userId, expiresIn}))
-    setState({token, userId, isLogin: true, isReady: true})
+  const login = useCallback(({token, id, expiresIn}) => {
+    localStorage.setItem(STORAGE_NAME, JSON.stringify({token, id, expiresIn}))
+    setState({token, id, isLogin: true, isReady: true})
   }, [STORAGE_NAME])
 
   const logout = useCallback(() => {
