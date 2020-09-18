@@ -45,7 +45,7 @@ app.use(fileUpload({
   responseOnLimit: "Достигнут предел размера файла",
 }))
 
-app.use(compression())
+app.use(compression({level: 9}))
 app.use(express.json())
 app.use(expressSitemap(sitemap.get, config.get("sitemapBaseUrl")))
 app.use(expressRobots(robots()))
