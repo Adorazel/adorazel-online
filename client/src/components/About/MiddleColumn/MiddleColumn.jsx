@@ -45,23 +45,16 @@ const MiddleColumn = () => {
   }, [request])
 
   const getResume = useCallback(async (id) => {
-    const data = await request(...GET_FILE(about_resume))
+    const data = await request(...GET_FILE(id))
     if (data) {
-      return cache.getItem(id).then(blob => {
-        if (blob) return URL.createObjectURL(blob)
-        return new Promise((resolve, reject) => {
-          fetch(data.path).then(response => response.blob()).then(blob => {
-            const isPDF = blob.type === "application/pdf"
-            if (isPDF) {
-              cache.setItem(id, blob).catch(error => reject(error))
-              resolve(URL.createObjectURL(blob))
-            }
-          }).catch(error => reject(error))
-        })
+      return new Promise((resolve, reject) => {
+        fetch(data.path)
+          .then(({url}) => resolve(url))
+          .catch(error => reject(error))
       })
     }
     return null
-  }, [about_resume, request, cache])
+  }, [request])
 
   useEffect(() => {
     if (!gallery && about_avatar && about_photo) {
@@ -76,9 +69,9 @@ const MiddleColumn = () => {
   }, [social, getSocial])
 
   useEffect(() => {
-    if (!resume && about_resume && cache) {
-      getResume(about_resume).then(blob => {
-        setResume(blob)
+    if (!resume && about_resume) {
+      getResume(about_resume).then(path => {
+        setResume(path)
       })
     }
   }, [resume, getResume, about_resume, cache])
