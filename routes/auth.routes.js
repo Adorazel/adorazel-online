@@ -56,7 +56,14 @@ router.post("/registration", [
     candidate = new process.models[model].model({email: login, password: hashedPassword})
     await candidate.save()
 
-    res.status(201).json({message: `${model === "admins" ? "Администратор" : "Пользователь"} успешно создан`})
+    const token = jwt.sign({id: candidate.id}, config.get("jwtSecret"), {expiresIn: "1h"})
+
+    res.json({
+      token, id:
+      candidate.id,
+      expiresIn: Date.now() + (60 * 60 * 1000),
+      message: `${model === "admins" ? "Администратор" : "Пользователь"} успешно создан`
+    })
 
   } catch (e) {
     if (process.env.NODE_ENV === "development") console.log(e)

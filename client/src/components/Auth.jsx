@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from "react"
 import useForm from "../hooks/form.hook"
 import useHttp from "../hooks/http.hook"
+import useMessage from "../hooks/message.hook"
 import {CHECK_ADMIN, LOGIN, REGISTRATION} from "../api"
 
 
@@ -9,6 +10,7 @@ export const Auth = ({ADMIN, AUTH}) => {
   const [adminExist, setAdminExist] = useState(null)
   const emailRef = useRef(null)
   const {request} = useHttp()
+  const {alert} = useMessage()
 
   const {form, changeHandler, submitHandler, focusHandler, blurHandler, sending} = useForm({
     initialState: {
@@ -16,8 +18,9 @@ export const Auth = ({ADMIN, AUTH}) => {
       password: {value: "", isValid: true},
       email: {value: "", isValid: true},
     },
-    onSuccess: json => {
-      AUTH.login(json)
+    onSuccess: data => {
+      if (data && data.message) alert({text: data.message, type: "success"})
+      AUTH.login(data)
     }
   })
 
