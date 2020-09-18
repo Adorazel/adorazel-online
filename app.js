@@ -78,7 +78,7 @@ itemsPaths.map(path => {
 })
 
 app.use("/files", express.static(path.join(__dirname, "files"), {maxAge: "1y"}))
-app.use(expressSitemap(sitemap.get, config.get("sitemapBaseUrl")))
+app.use(expressSitemap(sitemap.get, config.get("baseUrl")))
 app.use(expressRobots(robots()))
 
 if (process.env.NODE_ENV === "production") {
@@ -107,7 +107,7 @@ if (process.env.NODE_ENV === "production") {
       const redirects = await process.models["redirects"].model.find()
       redirects.map(redirect => {
         app.get(redirect.from, (req, res) => {
-          res.redirect(301, redirect.to)
+          res.redirect(301, config.get("baseUrl") + redirect.to)
         })
       })
 

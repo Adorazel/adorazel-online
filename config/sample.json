@@ -2,7 +2,7 @@
   "port": 5000,
   "mongoUrl": "",
   "jwtSecret": "",
-  "sitemapBaseUrl": "http://example.com",
+  "baseUrl": "http://example.com",
   "smtp": {
     "transporter": {
       "host": "smtp.example.com",

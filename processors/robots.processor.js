@@ -7,7 +7,7 @@ module.exports = () => {
   return {
     UserAgent: '*',
     Disallow: [ '/admin', '/dashboard' ],
-    Host: config.get("sitemapBaseUrl"),
-    Sitemap: config.get("sitemapBaseUrl") + "/sitemap.xml"
+    Host: config.get("baseUrl"),
+    Sitemap: config.get("baseUrl") + "/sitemap.xml"
   }
 }
