@@ -1,5 +1,6 @@
 const express = require("express")
-const fileUpload = require('express-fileupload')
+const compression = require("compression")
+const fileUpload = require("express-fileupload")
 const mongoose = require("mongoose")
 const path = require("path")
 const expressSitemap = require("express-sitemap-xml")
@@ -7,6 +8,8 @@ const expressRobots = require("express-robots-txt")
 const sitemap = require("./processors/sitemap.processor")
 const robots = require("./processors/robots.processor")
 const config = require("config")
+
+const PORT = config.get("port") || 5000
 
 process.models = {
   "education": require("./models/Exp"),
@@ -23,16 +26,14 @@ process.models = {
   "work": require("./models/Exp"),
 }
 
-const PORT = config.get("port") || 5000
+mongoose.set("useFindAndModify", false)
+
 const app = express()
-mongoose.set('useFindAndModify', false)
 
 if (process.env.NODE_ENV === "development") {
-  const cors = require('cors')
+  const cors = require("cors")
   app.use(cors())
 }
-
-app.use(express.json())
 
 app.use(fileUpload({
   limits: {...config.get("uploadLimits")},
@@ -43,10 +44,10 @@ app.use(fileUpload({
   responseOnLimit: "Достигнут предел размера файла",
 }))
 
+app.use(compression())
+app.use(express.json())
 app.use(expressSitemap(sitemap.get, config.get("sitemapBaseUrl")))
 app.use(expressRobots(robots()))
-
-app.use("/files", express.static(path.join(__dirname, "files")))
 
 app.use("/api/v1/auth", require("./routes/auth.routes"))
 app.use("/api/v1/education", require("./routes/items.routes"))
@@ -64,9 +65,10 @@ app.use("/api/v1/tiles", require("./routes/items.routes"))
 app.use("/api/v1/tools", require("./routes/items.routes"))
 app.use("/api/v1/work", require("./routes/items.routes"))
 
+app.use("/files", express.static(path.join(__dirname, "files"), {maxAge: 31536000}))
 
 if (process.env.NODE_ENV === "production") {
-  app.use("/", express.static(path.join(__dirname, "client", "build")))
+  app.use("/", express.static(path.join(__dirname, "client", "build"), {maxAge: 31536000}))
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"))
   })
