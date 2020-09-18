@@ -5,9 +5,10 @@ const mongoose = require("mongoose")
 const path = require("path")
 const expressSitemap = require("express-sitemap-xml")
 const expressRobots = require("express-robots-txt")
+const ms = require("ms")
+const config = require("config")
 const sitemap = require("./processors/sitemap.processor")
 const robots = require("./processors/robots.processor")
-const config = require("config")
 
 const PORT = config.get("port") || 5000
 
@@ -65,10 +66,10 @@ app.use("/api/v1/tiles", require("./routes/items.routes"))
 app.use("/api/v1/tools", require("./routes/items.routes"))
 app.use("/api/v1/work", require("./routes/items.routes"))
 
-app.use("/files", express.static(path.join(__dirname, "files"), {maxAge: 31536000}))
+app.use("/files", express.static(path.join(__dirname, "files"), {maxAge: "1y"}))
 
 if (process.env.NODE_ENV === "production") {
-  app.use("/", express.static(path.join(__dirname, "client", "build"), {maxAge: 31536000}))
+  app.use("/", express.static(path.join(__dirname, "client", "build"), {maxAge: "1y"}))
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"))
   })
