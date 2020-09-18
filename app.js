@@ -79,14 +79,6 @@ if (process.env.NODE_ENV === "production") {
     try {
       const indexFile = path.join(__dirname, "client", "build", "index.html")
 
-      // Редиректы со старого сайта
-      const redirects = await process.models["redirects"].model.find()
-      redirects.map(redirect => {
-        app.get(redirect.from, (req, res) => {
-          res.redirect(301, redirect.to)
-        })
-      })
-
       app.get(/\/admin[/]?/, (req, res) => {
         res.sendFile(indexFile)
       })
@@ -98,6 +90,13 @@ if (process.env.NODE_ENV === "production") {
       pages.map(page => {
         app.get(page.url, (req, res) => {
           res.sendFile(indexFile)
+        })
+      })
+
+      const redirects = await process.models["redirects"].model.find()
+      redirects.map(redirect => {
+        app.get(redirect.from, (req, res) => {
+          res.redirect(301, redirect.to)
         })
       })
 
