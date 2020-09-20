@@ -2,8 +2,8 @@ import React, {useContext} from "react"
 import {useHistory} from "react-router-dom"
 import AdminContext from "../context/AdminContext"
 import useMessage from "../hooks/message.hook"
-import SEO from "../components/SEO"
 import Panel from "../components/Panel/Panel"
+import {Helmet} from "react-helmet"
 
 const LEXICON = {
   // panel
@@ -157,10 +157,9 @@ const DashboardPage = () => {
 
   return (
     <div className="content-body">
-      <SEO
-        title="Панель управления"
-        robots="none"
-      />
+      <Helmet>
+        <title>Панель управления | Adorazel Online</title>
+      </Helmet>
       <section className="dashboard-page">
         <div className="px-4 py-5">
           <div className="text-right">

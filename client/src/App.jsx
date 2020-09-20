@@ -8,8 +8,6 @@ import AdminContext from "./context/AdminContext"
 import UserContext from "./context/UserContext"
 import NavContext from "./context/NavContext"
 import SettingsContext from "./context/SettingsContext"
-
-
 import PageWrapper from "./hoc/PageWrapper"
 import MainPage from "./pages/MainPage"
 import PortfolioPage from "./pages/PortfolioPage"
@@ -23,16 +21,11 @@ import ContactPage from "./pages/ContactPage"
 import AdminPage from "./pages/AdminPage"
 import DashboardPage from "./pages/DashboardPage"
 import NotFountPage from "./pages/NotFoundFage"
-import HeadMeta from "./components/HeadMeta"
-
 import useAuth from "./hooks/auth.hook"
 import useStorage from "./hooks/storage.hook"
 import useHttp from "./hooks/http.hook"
 import {GET_ALL} from "./api"
-
 import {v4 as uuidv4} from "uuid"
-
-
 
 const nav = [{
   id: uuidv4(),
@@ -114,7 +107,6 @@ function App() {
         <UserContext.Provider value={{...userLogin}}>
           <NavContext.Provider value={[...nav, /*manage*/]}>
             <SettingsContext.Provider value={{...settings}}>
-              <HeadMeta/>
               {settings && settings.global_metrika && <YMInitializer
                 accounts={[+settings.global_metrika]}
                 options={{webvisor: true}}

@@ -1,21 +1,22 @@
 import React, {useCallback, useEffect, useState} from "react"
-import SEO from "../components/SEO"
-import {useHistory, useParams} from "react-router-dom"
+import {useParams} from "react-router-dom"
 import Gallery from "../components/Post/Gallery"
 import useHttp from "../hooks/http.hook"
-import useParser from "../hooks/parser.hook"
 import useGallery from "../hooks/gallery.hook"
 import {GET} from "../api"
-
-
+import {stripTags} from "../utils"
+import Helmet from "react-helmet"
+import Error from "../components/Error"
+import {Parser} from "html-to-react"
 
 const PostPage = () => {
 
   const [post, setPost] = useState(null)
-  const history = useHistory()
+  const [notFound, setNotFound] = useState(false)
   const {gallery, getGallery} = useGallery()
   const {id} = useParams()
   const {request} = useHttp()
+  const parser = new Parser()
 
   const getPost = useCallback(async () => {
     const data = await request(...GET("posts", id, {
@@ -23,8 +24,8 @@ const PostPage = () => {
       owner: "blog/posts",
     }))
     if (data) return setPost(data)
-    history.push("/404")
-  }, [id, request, history, setPost])
+    setNotFound(true)
+  }, [id, request, setPost, setNotFound])
 
   useEffect(() => {
     if (!post) getPost()
@@ -38,25 +39,25 @@ const PostPage = () => {
 
   return (
     <div className="content-body">
-      <SEO
-        title={useParser(post && post.title ? post.title : "")}
-        description={useParser(post && post.description ? post.description : "")}
-        keywords={useParser(post && post.keywords ? post.keywords : "")}
-        image={gallery ? gallery[0][0] : null}
-      />
-      <section className="post-page">
-        <div className="container py-5">
-          <div className="row">
-            <div className="col-12 col-lg-8 mb-5">
-              <h1 className="h2 text-primary font-weight-light mb-3 mb-md-4">
-                {useParser(post && post.longtitle)}
-              </h1>
-              {useParser(post && post.richtext)}
+      {notFound && <Error error={404}/>}
+      {post && <>
+        <Helmet>
+          <title>{`${stripTags(post.title)} | Adorazel Online`}</title>
+        </Helmet>
+        <section className="post-page">
+          <div className="container py-5">
+            <div className="row">
+              <div className="col-12 col-lg-8 mb-5">
+                <h1 className="h2 text-primary font-weight-light mb-3 mb-md-4">
+                  {parser.parse(post.longtitle)}
+                </h1>
+                {parser.parse(post.richtext)}
+              </div>
+              {<Gallery items={post.gallery}/>}
             </div>
-            {post && <Gallery items={post.gallery}/>}
           </div>
-        </div>
-      </section>
+        </section>
+      </>}
     </div>
   )
 }

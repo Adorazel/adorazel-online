@@ -1,37 +1,25 @@
-import React, {useContext, useEffect} from "react"
-import SEO from "../components/SEO"
+import React, {useContext, useEffect, useState} from "react"
 import MiddleColumn from "../components/About/MiddleColumn"
 import LeftColumn from "../components/About/LeftColumn"
 import RightColumn from "../components/About/RightColumn"
-import useGallery from "../hooks/gallery.hook"
 import SettingsContext from "../context/SettingsContext"
-
+import Helmet from "react-helmet"
+import {stripTags} from "../utils"
 
 const AboutPage = () => {
 
-  const {
-    about_title,
-    about_description,
-    about_keywords,
-    about_image
-  } = useContext(SettingsContext)
-
-  const {gallery, getGallery} = useGallery()
+  const {about_title} = useContext(SettingsContext)
+  const [title, setTitle] = useState(null)
 
   useEffect(() => {
-    if (!gallery && about_image) {
-      getGallery([[about_image]], true)
-    }
-  }, [about_image, gallery, getGallery])
+    about_title && setTitle(`${stripTags(about_title)} | Adorazel Online`)
+  }, [about_title])
 
   return (
     <div className="content-body">
-      <SEO
-        title={about_title}
-        description={about_description}
-        keywords={about_keywords}
-        image={gallery ? gallery[0][0] : null}
-      />
+      <Helmet>
+        {title && <title>{title}</title>}
+      </Helmet>
       <section className="about-page">
         <div className="container pt-5 pb-lg-5">
           <h1 hidden>Adorazel</h1>

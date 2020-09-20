@@ -1,20 +1,16 @@
-import React, {useContext} from "react"
+import React from "react"
 import TilesBlock from "../components/Main/TilesBlock"
 import SkillsSlider from "../components/Main/SkillsSlider"
 import TimelineBlock from "../components/Main/TimelineBlock"
-import SEO from "../components/SEO"
-import SettingsContext from "../context/SettingsContext"
+import {Helmet} from "react-helmet"
 
 const MainPage = () => {
 
-  const {main_description, main_keywords} = useContext(SettingsContext)
-
   return (
     <div className="content-body">
-      <SEO
-        description={main_description}
-        keywords={main_keywords}
-      />
+      <Helmet>
+        <title>Adorazel Online</title>
+      </Helmet>
       <TilesBlock/>
       <SkillsSlider/>
       <TimelineBlock/>

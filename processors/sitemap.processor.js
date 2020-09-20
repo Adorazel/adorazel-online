@@ -66,7 +66,7 @@ sitemap.set =  async (req, id, callback) => {
         url = `/${req.body.owner.split("/")[0]}`
       }
       if (url === "/global") return callback()
-      if (url === "/main") url = ""
+      if (url === "/main") url = "/"
       const page = await Page.findOne({url})
       if (!page) {
         await createPage(url)

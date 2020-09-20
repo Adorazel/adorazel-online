@@ -1,9 +1,10 @@
-import React, {useContext, useEffect} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import SettingsContext from "../context/SettingsContext"
-import SEO from "../components/SEO"
 import FormBlock from "../components/FormBlock"
 import {Tooltip} from "react-tippy"
 import useGallery from "../hooks/gallery.hook"
+import Helmet from "react-helmet"
+import {stripTags} from "../utils"
 
 const ContactPage = () => {
 
@@ -13,12 +14,11 @@ const ContactPage = () => {
     contacts_telegram,
     contacts_email,
     contacts_icq,
-    contacts_title,
-    contacts_description,
-    contacts_keywords,
+    contacts_title
   } = useContext(SettingsContext)
 
   const {gallery, getGallery} = useGallery()
+  const [title, setTitle] = useState(null)
 
   useEffect(() => {
     if (!gallery && contacts_bg) {
@@ -26,12 +26,14 @@ const ContactPage = () => {
     }
   }, [contacts_bg, gallery, getGallery])
 
+  useEffect(() => {
+    contacts_title && setTitle(`${stripTags(contacts_title)} | Adorazel Online`)
+  }, [contacts_title])
+
   return (<>
-    <SEO
-      title={contacts_title}
-      description={contacts_description}
-      keywords={contacts_keywords}
-    />
+    <Helmet>
+      {title && <title>{title}</title>}
+    </Helmet>
     {gallery && <img src={gallery[0][0]} alt="" className="position-absolute w-100" style={{pointerEvents: "none"}}/>}
     <h1 hidden>Контакты</h1>
     <section className="contact-page container content-body py-5 d-flex align-items-end">

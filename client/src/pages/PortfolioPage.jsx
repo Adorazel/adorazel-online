@@ -1,25 +1,29 @@
 import React, {useCallback, useContext, useEffect, useState} from "react"
-import SEO from "../components/SEO"
 import Aside from "../components/Porfolio/Aside"
 import Grid from "../components/Porfolio/Grid"
 import Details from "../components/Porfolio/Details"
 import useHttp from "../hooks/http.hook"
 import useResize from "../hooks/resize.hook"
 import {GET_ALL} from "../api"
-import {shuffle} from "../utils"
+import {shuffle, stripTags} from "../utils"
 import SettingsContext from "../context/SettingsContext"
+import Helmet from "react-helmet"
 
 
 const PortfolioPage = () => {
 
-  const {portfolio_title, portfolio_description, portfolio_keywords} = useContext(SettingsContext)
-
+  const {portfolio_title} = useContext(SettingsContext)
+  const [title, setTitle] = useState(null)
   const [projects, setProjects] = useState(null)
   const [current, setCurrent] = useState(null)
   const [open, setOpen] = useState(false)
   const {request} = useHttp()
   const {x} = useResize()
   const mobile = x < 992
+
+  useEffect(() => {
+    portfolio_title && setTitle(`${stripTags(portfolio_title)} | Adorazel Online`)
+  }, [portfolio_title])
 
   useEffect(() => {
     if (!mobile) {
@@ -65,11 +69,9 @@ const PortfolioPage = () => {
   return (
     <section
       className="portfolio-page content-body position-relative d-lg-flex align-items-stretch justify-content-between pb-0">
-      <SEO
-        title={portfolio_title}
-        description={portfolio_description}
-        keywords={portfolio_keywords}
-      />
+      <Helmet>
+        {title && <title>{title}</title>}
+      </Helmet>
       <h1 hidden>Портфолио</h1>
       <Aside mobile={mobile} current={current} open={open} toggleHandler={toggleHandler}/>
       <Grid mobile={mobile} projects={projects} current={current} toggleHandler={toggleHandler}/>
