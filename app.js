@@ -94,15 +94,16 @@ if (process.env.NODE_ENV === "production") {
       let page, arr, $IMAGE, $TITLE, $DESCRIPTION, $KEYWORDS, $ROBOTS, $YANDEX_VERIFICATION, $GOOGLE_SITE_VERIFICATION,
         $BASE_URL, $URL
 
-      uri = uri.split("/")
-      if (uri.length === 1) page = "main"
-      if (uri.length === 2) page = uri[1]
-      if (uri.length === 3) page = uri[2]
-
       $IMAGE = config.get("baseUrl") + "/static/meta/logo-share.png"
       $TITLE = "Adorazel Online"
       $DESCRIPTION = $KEYWORDS = ""
       $ROBOTS = "none"
+
+      page = "main"
+
+      uri = uri.split("/")
+      if (uri[1].length) page = uri[1]
+      if (uri.length === 3) page = uri[2]
 
       if (uri.length < 3) {
 
