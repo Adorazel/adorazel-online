@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from "react"
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom"
 import {YMInitializer} from "react-yandex-metrika"
 import ReactGA from "react-ga"
+import * as JivoSite from "react-jivosite"
 import StorageContext from "./context/StorageContext"
 import AdminContext from "./context/AdminContext"
 import UserContext from "./context/UserContext"
@@ -30,7 +31,7 @@ import useHttp from "./hooks/http.hook"
 import {GET_ALL} from "./api"
 
 import {v4 as uuidv4} from "uuid"
-import * as JivoSite from "react-jivosite";
+
 
 
 const nav = [{
