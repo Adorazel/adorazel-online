@@ -69,6 +69,9 @@ const CONFIG = {
       skills: {
         fields: ["title", "icon", "link"],
       },
+      settings: {
+        fields: ["key", "value"],
+      },
       seo: {
         fields: ["key", "value"],
       },

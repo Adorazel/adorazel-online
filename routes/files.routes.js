@@ -4,7 +4,7 @@ const auth = require("../middleware/auth.middleware")
 const mongoose = require("mongoose")
 const _path = require("path")
 const {v4} = require("uuid")
-const fs = require("fs");
+const fs = require("fs")
 const router = Router()
 
 router.post("", auth, async (req, res) => {

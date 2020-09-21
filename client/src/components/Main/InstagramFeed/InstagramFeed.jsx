@@ -1,14 +1,16 @@
-import React, {useState, useEffect, useCallback} from "react"
+import React, {useState, useEffect, useCallback, useContext} from "react"
 import {Tooltip} from "react-tippy"
+import SettingsContext from "../../../context/SettingsContext";
 
 const INSTAGRAM_BASE_URL = "https://www.instagram.com"
 
 const InstagramFeed = () => {
 
   const [instagramData, setInstagramData] = useState(null)
+  const {main_instagram} = useContext(SettingsContext)
 
   const getData = useCallback(() => {
-    fetch(INSTAGRAM_BASE_URL + "/adorazel/", {referrer: "", referrerPolicy: "no-referrer"})
+    fetch(INSTAGRAM_BASE_URL + `/${main_instagram}/`, {referrer: "", referrerPolicy: "no-referrer"})
       .then(response => response.text()).then(data => {
       let json = data.match(/<script type="text\/javascript">window\._sharedData = (.*?)<\/script>/)
       json = json[0]
@@ -21,11 +23,11 @@ const InstagramFeed = () => {
         setInstagramData(json)
       }
     }).catch(error => console.log(error))
-  }, [])
+  }, [main_instagram])
 
   useEffect(() => {
-    getData()
-  }, [getData])
+    main_instagram && getData()
+  }, [main_instagram, getData])
 
   const empty = []
   for(let i = 0; i < 6; i++) {
@@ -43,7 +45,7 @@ const InstagramFeed = () => {
           </div>
         </div>)}
         {instagramData && instagramData.map(({node}) => (
-          <Tooltip key={node.id} position="bottom" title={node.location.name}
+          <Tooltip key={node.id} position="bottom" title={node.location && node.location.name}
                    className="col-4 d-block img-thumbnail border-bottom border-right border-dark p-1">
             <a href={INSTAGRAM_BASE_URL + "/p/" + node.shortcode} className="d-block overflow-hidden img-wrapper"
                target="_blank" rel="noreferrer noopener">

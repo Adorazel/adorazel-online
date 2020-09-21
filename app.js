@@ -11,6 +11,7 @@ const Page = require("./models/Page")
 const File = require("./models/File")
 const sitemap = require("./processors/sitemap.processor")
 const robots = require("./processors/robots.processor")
+const setup = require("./setup/index")
 
 const PORT = config.get("port") || 5000
 
@@ -238,6 +239,12 @@ async function start() {
       useUnifiedTopology: true,
       useCreateIndex: true
     })
+
+    const result = await setup()
+    if (result) {
+      console.info("Database created successfully.")
+      console.info(`Go to ${config.get("baseUrl")}/admin and create a site administrator.`)
+    }
   } catch (e) {
     console.log("Server Error", e.message)
     process.exit(1)
