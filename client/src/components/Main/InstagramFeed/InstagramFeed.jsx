@@ -30,29 +30,40 @@ const InstagramFeed = () => {
   }, [main_instagram, getData])
 
   const empty = []
-  for(let i = 0; i < 6; i++) {
+  for (let i = 0; i < 6; i++) {
     empty.push(0)
   }
 
   return (
     <div className="instagram-feed">
       <div className="row mx-0">
-        {!instagramData && empty.map((_, i) => <div key={i} className="col-4 img-thumbnail border-bottom border-right border-dark p-1">
-          <div className="overflow-hidden img-wrapper">
-            <div className="placeholder">
-              <div className="spinner-border text-primary"/>
+        {!instagramData && empty.map((_, i) => (
+          <div key={i} className="col-4 img-thumbnail border-bottom border-right border-dark p-1">
+            <div className="overflow-hidden img-wrapper">
+              <div className="placeholder">
+                <div className="spinner-border text-primary"/>
+              </div>
             </div>
-          </div>
-        </div>)}
-        {instagramData && instagramData.map(({node}) => (
-          <Tooltip key={node.id} position="bottom" title={node.location && node.location.name}
-                   className="col-4 d-block img-thumbnail border-bottom border-right border-dark p-1">
-            <a href={INSTAGRAM_BASE_URL + "/p/" + node.shortcode} className="d-block overflow-hidden img-wrapper"
-               target="_blank" rel="noreferrer noopener">
-              <img src={node.thumbnail_resources[0].src} className="img-fluid" alt={node.accessibility_caption}/>
-            </a>
-          </Tooltip>
-        ))}
+          </div>))}
+        {instagramData && instagramData.map(({node}) => {
+          if (node.location) return (
+            <Tooltip key={node.id} position="bottom" title={node.location ? node.location.name : "default"}
+                     className="col-4 d-block img-thumbnail border-bottom border-right border-dark p-1">
+              <a href={INSTAGRAM_BASE_URL + "/p/" + node.shortcode} className="d-block overflow-hidden img-wrapper"
+                 target="_blank" rel="noreferrer noopener">
+                <img src={node.thumbnail_resources[0].src} className="img-fluid" alt={node.accessibility_caption}/>
+              </a>
+            </Tooltip>
+          )
+          return (
+            <div key={node.id} className="col-4 d-block img-thumbnail border-bottom border-right border-dark p-1">
+              <a href={INSTAGRAM_BASE_URL + "/p/" + node.shortcode} className="d-block overflow-hidden img-wrapper"
+                 target="_blank" rel="noreferrer noopener">
+                <img src={node.thumbnail_resources[0].src} className="img-fluid" alt={node.accessibility_caption}/>
+              </a>
+            </div>
+          )
+        })}
       </div>
     </div>
   )
